@@ -13,7 +13,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Create storage account for terraform state file'
       inputs:
-        azureSubscription: '$(sub_id)'
+        azureSubscription: $(sub_id)
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
@@ -31,7 +31,7 @@ stages:
     - task: AzurePowerShell@5
       displayName: 'Get storage account key'
       inputs:
-        azureSubscription: '$(sub_id)'
+        azureSubscription: $(sub_id)
         ScriptType: InlineScript
         azurePowerShellVersion: LatestVersion
         Inline: |
