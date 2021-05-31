@@ -13,7 +13,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Create storage account for terraform state file'
       inputs:
-        azureSubscription: $(sub_id)
+        azureSubscription: "eb6aeeb7-0c31-46b5-980d-8f268d17aaa4"
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
@@ -31,7 +31,7 @@ stages:
     - task: AzurePowerShell@5
       displayName: 'Get storage account key'
       inputs:
-        azureSubscription: $(sub_id)
+        azureSubscription: "eb6aeeb7-0c31-46b5-980d-8f268d17aaa4"
         ScriptType: InlineScript
         azurePowerShellVersion: LatestVersion
         Inline: |
@@ -54,7 +54,7 @@ stages:
       displayName: 'Terraform : init'
       inputs:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        backendServiceArm: '$(sub_id)'
+        backendServiceArm: "eb6aeeb7-0c31-46b5-980d-8f268d17aaa4"
         backendAzureRmResourceGroupName: '$(resource_group)'
         backendAzureRmStorageAccountName: '$(storage_account)'
         backendAzureRmContainerName: terraform
@@ -64,14 +64,14 @@ stages:
       inputs:
         command: plan
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        environmentServiceNameAzureRM: '$(sub_id)'
+        environmentServiceNameAzureRM: "eb6aeeb7-0c31-46b5-980d-8f268d17aaa4"
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
       displayName: 'Terraform : apply'
       inputs:
         command: apply
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         commandOptions: '-auto-approve'
-        environmentServiceNameAzureRM: '$(sub_id)'
+        environmentServiceNameAzureRM: "eb6aeeb7-0c31-46b5-980d-8f268d17aaa4"
         backendAzureRmResourceGroupName: '$(resource_group)'
         backendAzureRmStorageAccountName: '$(storage_account) '
         backendAzureRmContainerName: terraform
@@ -107,7 +107,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy FakeRestAPI app to Azure'
             inputs:
-              azureSubscription: '$(sub_id)'
+              azureSubscription: "eb6aeeb7-0c31-46b5-980d-8f268d17aaa4"
               appName: '$(appservice)'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
